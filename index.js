@@ -1,6 +1,6 @@
 // buttons of a phone
 const numpadLetters = {
-  2: ["a", "b", "c"],
+  2: ["c", "b", "a"],
   3: ["d", "e", "f"],
   4: ["g", "h", "i"],
   5: ["j", "k", "l"],
@@ -12,13 +12,16 @@ const numpadLetters = {
 
 const validInputs = ["2", "3", "4", "5", "6", "7", "8", "9"];
 
-function possibleWords(digits) {
+
+// Recursive version
+
+function possibleWordsRecursive(digits) {
   // empty input
   if (digits.length === 0) {
     return [];
   }
 
-  // check if valud input
+  // check if valid input
   for (let i = 0; i < digits.length; i++) {
     if (digits.length > 4) {
       return "Invalid input! The maximum length of the input can only be 4";
@@ -28,15 +31,32 @@ function possibleWords(digits) {
     }
   }
 
-  /*
-      //Iterative version
-
-      const result = letterCombinations(digits)
-  */
-
-  // Recursive version
   const result = [];
   letterCombinationsRecursive(digits, 0, "", result);
+
+  bubbleSort(result);
+  return result;
+}
+
+
+//Iterative version
+
+function possibleWordsIterative(digits){
+  // empty input
+  if (digits.length === 0) {
+    return [];
+  }
+
+  // check if valid input
+  for (let i = 0; i < digits.length; i++) {
+    if (digits.length > 4) {
+      return "Invalid input! The maximum length of the input can only be 4";
+    }
+    if (!validInputs.includes(digits[i])) {
+      return "Invalid input! Please give an input only made of digits in the range ['2','9']";
+    }
+  }
+  const result = letterCombinations(digits);
 
   bubbleSort(result);
   return result;
@@ -103,9 +123,15 @@ function bubbleSort(array) {
   }
 }
 
-console.log(possibleWords("23")); 
-console.log(possibleWords(""));
-console.log(possibleWords("2")); 
+console.log("Solution using the recursive algorithm");
+console.log(possibleWordsRecursive("23")); 
+console.log(possibleWordsRecursive(""));
+console.log(possibleWordsRecursive("2")); 
+
+console.log("\nSolution using the iterative algorithm");
+console.log(possibleWordsIterative("23")); 
+console.log(possibleWordsIterative(""));
+console.log(possibleWordsIterative("2")); 
 
 // Unit tests:
 
@@ -273,8 +299,12 @@ const tests = [
 ];
 
 tests.forEach(({ input, expected }) => {
-  const result = possibleWords(input);
-  assert.deepStrictEqual(result, expected);
+  const resultRec = possibleWordsRecursive(input);
+  const resultIter = possibleWordsIterative(input);
+
+  assert.deepStrictEqual(resultRec, expected);
+  assert.deepStrictEqual(resultIter, expected);
+
 });
 
 // If the tests passed
