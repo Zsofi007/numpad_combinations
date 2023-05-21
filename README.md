@@ -1,5 +1,7 @@
 # Numpad Combinations
 
+I have implemented both a recursive and an iterative version of the task.
+
 ## Objective
 
 Using Java or JavaScript language, implement a solution for the task below. You have 7 days to complete the assignment. 
