@@ -79,7 +79,6 @@ function letterCombinationsRecursive(digits, index, current, result) {
 }
 
 
-// Alternate solution
 // Iterative
 
 function letterCombinations(digits) {
